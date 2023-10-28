@@ -22,7 +22,7 @@ function App() {
     }
 
     for (let i = 0; i < length; i++) {
-      pswrd += chars[Math.floor((Math.random() * chars.length )+ 1)]
+      pswrd += chars[Math.floor(Math.random() * chars.length )]
     }
 
     setPassword(pswrd)
