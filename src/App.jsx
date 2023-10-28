@@ -7,6 +7,8 @@ function App() {
   const [numberAllowed, setNumberAllowed] = useState(false)
   const [charAllowed, setCharacterAllowed] = useState(false)
 
+  const passRef = useRef(null)
+
   const passwordGenerator = useCallback(() => {
 
     let pswrd = ""
@@ -26,6 +28,12 @@ function App() {
     setPassword(pswrd)
 
   }, [numberAllowed, charAllowed, length, setPassword])
+
+  const copyToClipboard = useCallback(()=>{
+    passRef.current?.select()
+    window.navigator.clipboard.writeText(password)
+
+  },[password])
 
 
   useEffect(() => {
@@ -49,9 +57,15 @@ function App() {
             type="text"
             readOnly
             value={password}
+            ref={passRef}
             className='w-full mb-4 outline-none rounded-lg p-1 text-lg text-black'
             />
-            <button>Copy</button>
+            <button 
+            className='bg-sky-500 text-black p-2 rounded-lg w-full text-lg hover:bg-cyan-300 transition-all duration-500 active:scale-90' 
+            onClick={copyToClipboard}
+            >Copy</button>
+          
+
           </div> 
           <div className='flex gap-10'>
             <div className='flex items-center gap-1'>
@@ -61,7 +75,7 @@ function App() {
               className='cursor-pointer'
               value={length}
               min={6}
-              max={20}
+              max={30}
               onChange={(e)=> setLength(e.target.value)}
               />
 
